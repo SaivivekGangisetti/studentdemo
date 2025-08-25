@@ -8,7 +8,7 @@ function App() {
 
   // Fetch all students
   const fetchStudents = async () => {
-    const res = await fetch("http://localhost:2030/students");
+    const res = await fetch("http://localhost:2030/springbootstudentapi-backend/students");
     const data = await res.json();
     setStudents(data);
   };
