@@ -45,7 +45,7 @@ pipeline {
                 if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\springbootstudentapi-backend" (
                     rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\springbootstudentapi-backend"
                 )
-                for %%f in (BACKEND\\studentcrud\\target\\*.war) do copy "%%f" "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\springbootstudentapi-backend.war"
+                for %%f in (BACKEND\\crud\\target\\*.war) do copy "%%f" "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\springbootstudentapi-backend.war"
                 '''
             }
         }
