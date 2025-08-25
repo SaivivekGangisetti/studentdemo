@@ -6,9 +6,12 @@ function App() {
   const [form, setForm] = useState({ name: "", department: "", age: "" });
   const [editingId, setEditingId] = useState(null);
 
+  // Define API base once
+  const API_BASE = "http://localhost:2030/springbootstudentapi-backend";
+
   // Fetch all students
   const fetchStudents = async () => {
-    const res = await fetch("http://localhost:2030/springbootstudentapi-backend/students");
+    const res = await fetch(`${API_BASE}/students`);
     const data = await res.json();
     setStudents(data);
   };
@@ -28,7 +31,7 @@ function App() {
 
     if (editingId) {
       // Update
-      await fetch(`http://localhost:8080/students/${editingId}`, {
+      await fetch(`${API_BASE}/students/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -36,7 +39,7 @@ function App() {
       setEditingId(null);
     } else {
       // Create
-      await fetch("http://localhost:8080/students", {
+      await fetch(`${API_BASE}/students`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -49,7 +52,7 @@ function App() {
 
   // Delete student
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:8080/students/${id}`, {
+    await fetch(`${API_BASE}/students/${id}`, {
       method: "DELETE",
     });
     fetchStudents();
