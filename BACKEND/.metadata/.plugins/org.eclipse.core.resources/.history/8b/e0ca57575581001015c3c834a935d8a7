@@ -1,0 +1,51 @@
+package com.klu.crud;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/students")
+public class StudentController {
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    // Create
+    @PostMapping
+    public Student addStudent(@RequestBody Student student) {
+        return studentRepository.save(student);
+    }
+
+    // Read all
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    // Read by ID
+    @GetMapping("/{id}")
+    public Optional<Student> getStudentById(@PathVariable Long id) {
+        return studentRepository.findById(id);
+    }
+
+    // Update
+    @PutMapping("/{id}")
+    public Student updateStudent(@PathVariable Long id, @RequestBody Student updatedStudent) {
+        return studentRepository.findById(id).map(student -> {
+            student.setName(updatedStudent.getName());
+            student.setDepartment(updatedStudent.getDepartment());
+            student.setAge(updatedStudent.getAge());
+            return studentRepository.save(student);
+        }).orElseThrow(() -> new RuntimeException("Student not found with id " + id));
+    }
+
+    // Delete
+    @DeleteMapping("/{id}")
+    public String deleteStudent(@PathVariable Long id) {
+        studentRepository.deleteById(id);
+        return "Deleted student with id " + id;
+    }
+}
