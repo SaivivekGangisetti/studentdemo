@@ -6,7 +6,7 @@ pipeline {
         // ===== FRONTEND BUILD =====
         stage('Build Frontend') {
             steps {
-                dir('FRONTEND/demo1') {   // fixed path (double // not needed)
+                dir('FRONTEND/demo1') {
                     bat 'npm install'
                     bat 'npm run build'
                 }
@@ -29,8 +29,8 @@ pipeline {
         // ===== BACKEND BUILD =====
         stage('Build Backend') {
             steps {
-                dir('BACKEND') {
-                    bat 'mvn clean package -DskipTests'   // skip tests if not required
+                dir('BACKEND/crud') {   // fixed path where pom.xml exists
+                    bat 'mvn clean package -DskipTests'
                 }
             }
         }
@@ -45,7 +45,7 @@ pipeline {
                 if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\springbootstudentapi-backend" (
                     rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\springbootstudentapi-backend"
                 )
-                for %%f in (BACKEND\\target\\*.war) do copy "%%f" "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\springbootstudentapi-backend.war"
+                for %%f in (BACKEND\\studentcrud\\target\\*.war) do copy "%%f" "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\springbootstudentapi-backend.war"
                 '''
             }
         }
